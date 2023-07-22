@@ -44,6 +44,8 @@ object Language : BaseSettingsItem.Selector() {
 
     override val title = R.string.language.asText()
 
+    override val icon = R.drawable.ic_translate
+
     private var entries = emptyArray<String>()
     private var entryValues = emptyArray<String>()
     private var index = -1
@@ -82,7 +84,7 @@ object AppSettings : BaseSettingsItem.Section() {
 
 object Hide : BaseSettingsItem.Input() {
     override val title = R.string.settings_hide_app_title.asText()
-    override val description = R.string.settings_hide_app_summary.asText()
+    override val icon = R.drawable.ic_hide
     override var value = ""
 
     override val inputResult
@@ -105,7 +107,7 @@ object Hide : BaseSettingsItem.Input() {
 
 object Restore : BaseSettingsItem.Blank() {
     override val title = R.string.settings_restore_app_title.asText()
-    override val description = R.string.settings_restore_app_summary.asText()
+    override val icon = R.drawable.ic_restore
 
     override fun onPressed(view: View, handler: Handler) {
         handler.onItemPressed(view, this) {
@@ -130,7 +132,7 @@ object Restore : BaseSettingsItem.Blank() {
 
 object AddShortcut : BaseSettingsItem.Blank() {
     override val title = R.string.add_shortcut_title.asText()
-    override val description = R.string.setting_add_shortcut_summary.asText()
+    override val icon = R.drawable.ic_shortcut
 }
 
 object DownloadPath : BaseSettingsItem.Input() {
@@ -142,7 +144,8 @@ object DownloadPath : BaseSettingsItem.Input() {
         }
 
     override val title = R.string.settings_download_path_title.asText()
-    override val description get() = MediaStoreUtils.fullPath(value).asText()
+    override val icon = R.drawable.ic_download
+//    override val description get() = MediaStoreUtils.fullPath(value).asText()
 
     override var inputResult: String = value
         set(value) = set(value, field, { field = it }, BR.inputResult, BR.path)
@@ -164,6 +167,8 @@ object UpdateChannel : BaseSettingsItem.Selector() {
 
     override val title = R.string.settings_update_channel_title.asText()
 
+    override val icon = R.drawable.ic_update
+
     override val entryRes = R.array.update_channel
     override fun entries(res: Resources): Array<String> {
         return super.entries(res).let {
@@ -176,7 +181,6 @@ object UpdateChannel : BaseSettingsItem.Selector() {
 
 object UpdateChannelUrl : BaseSettingsItem.Input() {
     override val title = R.string.settings_update_custom.asText()
-    override val description get() = value.asText()
     override var value
         get() = Config.customChannelUrl
         set(value) {
@@ -198,19 +202,18 @@ object UpdateChannelUrl : BaseSettingsItem.Input() {
 
 object UpdateChecker : BaseSettingsItem.Toggle() {
     override val title = R.string.settings_check_update_title.asText()
-    override val description = R.string.settings_check_update_summary.asText()
+    override val icon = R.drawable.ic_loop
     override var value by Config::checkUpdate
 }
 
 object DoHToggle : BaseSettingsItem.Toggle() {
     override val title = R.string.settings_doh_title.asText()
-    override val description = R.string.settings_doh_description.asText()
+    override val icon = R.drawable.ic_dns
     override var value by Config::doh
 }
 
 object SystemlessHosts : BaseSettingsItem.Blank() {
     override val title = R.string.settings_hosts_title.asText()
-    override val description = R.string.settings_hosts_summary.asText()
 }
 
 // --- Magisk
@@ -221,9 +224,7 @@ object Magisk : BaseSettingsItem.Section() {
 
 object Zygisk : BaseSettingsItem.Toggle() {
     override val title = R.string.zygisk.asText()
-    override val description get() =
-        if (mismatch) R.string.reboot_apply_change.asText()
-        else R.string.settings_zygisk_summary.asText()
+    override val icon = R.drawable.ic_zygisk
     override var value
         get() = Config.zygisk
         set(value) {
@@ -238,16 +239,7 @@ object Zygisk : BaseSettingsItem.Toggle() {
 
 object DenyList : BaseSettingsItem.Toggle() {
     override val title = R.string.settings_denylist_title.asText()
-    override val description get() =
-        if (isEnabled) {
-            if (Zygisk.mismatch)
-                R.string.reboot_apply_change.asText()
-            else
-                R.string.settings_denylist_summary.asText()
-        } else {
-            R.string.settings_denylist_error.asText(R.string.zygisk.asText())
-        }
-
+    override val icon = R.drawable.ic_deny_list
     override var value = Config.denyList
         set(value) {
             field = value
@@ -269,7 +261,6 @@ object DenyList : BaseSettingsItem.Toggle() {
 
 object DenyListConfig : BaseSettingsItem.Blank() {
     override val title = R.string.settings_denylist_config_title.asText()
-    override val description = R.string.settings_denylist_config_summary.asText()
     override fun refresh() {
         isEnabled = Zygisk.value
     }
@@ -279,20 +270,18 @@ object DenyListConfig : BaseSettingsItem.Blank() {
 
 object Tapjack : BaseSettingsItem.Toggle() {
     override val title = R.string.settings_su_tapjack_title.asText()
-    override val description = R.string.settings_su_tapjack_summary.asText()
     override var value by Config::suTapjack
 }
 
 object Biometrics : BaseSettingsItem.Toggle() {
     override val title = R.string.settings_su_biometric_title.asText()
-    override var description = R.string.settings_su_biometric_summary.asText()
+    override val icon = R.drawable.ic_fingerprint
     override var value by Config::suBiometric
 
     override fun refresh() {
         isEnabled = BiometricHelper.isSupported
         if (!isEnabled) {
             value = false
-            description = R.string.no_biometric.asText()
             notifyPropertyChanged(BR.checked)
         }
     }
@@ -304,14 +293,15 @@ object Superuser : BaseSettingsItem.Section() {
 
 object AccessMode : BaseSettingsItem.Selector() {
     override val title = R.string.superuser_access.asText()
+    override val icon = R.drawable.ic_supersu_access
     override val entryRes = R.array.su_access
     override var value by Config::rootMode
 }
 
 object MultiuserMode : BaseSettingsItem.Selector() {
     override val title = R.string.multiuser_mode.asText()
+    override val icon = R.drawable.ic_multiuser
     override val entryRes = R.array.multiuser_mode
-    override val descriptionRes = R.array.multiuser_summary
     override var value by Config::suMultiuserMode
 
     override fun refresh() {
@@ -322,7 +312,6 @@ object MultiuserMode : BaseSettingsItem.Selector() {
 object MountNamespaceMode : BaseSettingsItem.Selector() {
     override val title = R.string.mount_namespace_mode.asText()
     override val entryRes = R.array.namespace
-    override val descriptionRes = R.array.namespace_summary
     override var value by Config::suMntNamespaceMode
 }
 

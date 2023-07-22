@@ -16,167 +16,130 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/WidgetFoundation.Card"
+        style="@style/WidgetFoundation.Card.Elevated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> viewModel.saveTheme(theme)}"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:strokeColor="?colorPrimaryVariant"
-        app:strokeWidth="1.5dp"
-        tools:layout_gravity="center">
+        android:layout_marginTop="@dimen/l1"
+        android:onClick="@{() -> viewModel.saveTheme(theme)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?colorSurface">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/theme_appbar"
-                style="@style/WidgetFoundation.Appbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    style="@style/WidgetFoundation.Toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <View
-                            android:layout_width="100dp"
-                            android:layout_height="17sp"
-                            android:layout_gravity="center_vertical|start"
-                            android:background="?colorOnSurface" />
-
-                        <View
-                            android:layout_width="70dp"
-                            android:layout_height="12sp"
-                            android:layout_gravity="center_vertical|start"
-                            android:layout_marginTop="@dimen/l_25"
-                            android:background="?colorOnSurfaceVariant" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.appbar.MaterialToolbar>
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/theme_card_bottom"
-                style="@style/WidgetFoundation.Card"
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/theme_desc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/l1"
-                android:layout_marginTop="@dimen/l1"
-                android:layout_marginEnd="@dimen/l1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/theme_appbar">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/l1">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="17sp"
-                        android:background="?colorOnSurface" />
-
-                    <View
-                        android:layout_width="40dp"
-                        android:layout_height="11sp"
-                        android:layout_marginTop="@dimen/l_25"
-                        android:background="?colorOnSurfaceVariant" />
-
-                    <View
-                        android:layout_width="30dp"
-                        android:layout_height="11sp"
-                        android:layout_marginTop="@dimen/l_25"
-                        android:background="?colorOnSurfaceVariant" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <LinearLayout
-                android:id="@+id/theme_primary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/l1"
-                android:background="?colorPrimary"
-                android:orientation="vertical"
-                android:padding="@dimen/l1"
-                app:layout_constraintTop_toBottomOf="@+id/theme_card_bottom">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/theme_icon"
+                app:layout_constraintBottom_toTopOf="@id/theme_colors"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/l_75"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:alignItems="center">
 
                 <TextView
-                    android:layout_width="125dp"
+                    android:id="@+id/theme_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/l1"
                     android:text="@{theme.themeName}"
-                    android:textAppearance="@style/AppearanceFoundation.Title.OnPrimary"
+                    android:textAppearance="@style/AppearanceFoundation.Large"
                     android:textStyle="bold"
-                    tools:text="Default" />
+                    tools:text="Piplup" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="12sp"
-                    android:background="?colorOnPrimaryVariant" />
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/WidgetFoundation.Card.Elevated"
+                    gone="@{!theme.isSelected}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#307606">
 
-                <View
-                    android:layout_width="75dp"
-                    android:layout_height="12sp"
-                    android:layout_marginTop="@dimen/l_25"
-                    android:background="?colorOnPrimaryVariant" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/l_25"
+                        android:paddingBottom="@dimen/l_25"
+                        android:paddingRight="@dimen/l_50"
+                        android:paddingLeft="@dimen/l_50"
+                        android:text="ACTIVE"
+                        android:textColor="#4AEF3D"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/AppearanceFoundation.Tiny.Bold" />
 
-            </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </com.google.android.flexbox.FlexboxLayout>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/theme_navigation"
+                android:id="@+id/theme_colors"
                 style="@style/WidgetFoundation.Card.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/l1"
-                android:layout_marginBottom="@dimen/l1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/theme_primary">
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="@dimen/l_75"
+                app:layout_constraintTop_toBottomOf="@id/theme_desc"
+                app:cardBackgroundColor="?colorOnSecondary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/l1">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?colorPrimary"
+                    android:padding="@dimen/l_25"
+                    app:shapeAppearanceOverlay="@style/W.Shape.Rounded" />
 
-                    <View
-                        style="@style/WidgetFoundation.Image.Small"
-                        android:background="?colorSecondary" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:background="?colorSecondary"
+                    android:padding="@dimen/l_25"
+                    app:shapeAppearanceOverlay="@style/W.Shape.Rounded" />
 
-                    <View
-                        style="@style/WidgetFoundation.Image.Small"
-                        android:layout_marginStart="@dimen/l1"
-                        android:background="?colorDisabled" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="80dp"
+                    android:background="?colorTertiary"
+                    android:padding="@dimen/l_25"
+                    app:shapeAppearanceOverlay="@style/W.Shape.Rounded" />
 
-                </LinearLayout>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="120dp"
+                    android:background="?colorPrimaryInverse"
+                    android:padding="@dimen/l_25"
+                    app:shapeAppearanceOverlay="@style/W.Shape.Rounded" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/WidgetFoundation.Card.Elevated"
+                android:id="@+id/theme_icon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:cardBackgroundColor="?colorSurface"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_theme_magisk"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"/>
 
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            style="@style/WidgetFoundation.Icon.OnPrimary"
-            gone="@{!theme.isSelected}"
-            android:layout_gravity="end|top"
-            android:layout_margin="@dimen/l_50"
-            android:background="@drawable/bg_selection_circle_green"
-            app:srcCompat="@drawable/ic_check_md2"
-            app:tint="#fff" />
 
     </com.google.android.material.card.MaterialCardView>
 

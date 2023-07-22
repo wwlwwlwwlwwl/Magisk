@@ -39,7 +39,6 @@ class SettingsViewModel : BaseViewModel(), BaseSettingsItem.Handler {
     private fun createItems(): List<BaseSettingsItem> {
         val context = AppContext
         val hidden = context.packageName != BuildConfig.APPLICATION_ID
-
         // Customization
         val list = mutableListOf(
             Customization,

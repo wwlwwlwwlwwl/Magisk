@@ -1,5 +1,7 @@
 package com.topjohnwu.magisk.ui.theme
 
+import android.view.MenuItem
+import com.topjohnwu.magisk.R
 import com.topjohnwu.magisk.arch.BaseViewModel
 import com.topjohnwu.magisk.core.Config
 import com.topjohnwu.magisk.dialog.DarkThemeDialog
@@ -12,8 +14,8 @@ class ThemeViewModel : BaseViewModel(), TappableHeadlineItem.Listener {
 
     override fun onItemPressed(item: TappableHeadlineItem) = when (item) {
         is TappableHeadlineItem.ThemeMode -> DarkThemeDialog().show()
+        //DarkThemeDialog().publish()
     }
-
     fun saveTheme(theme: Theme) {
         if (!theme.isSelected) {
             Config.themeOrdinal = theme.ordinal
