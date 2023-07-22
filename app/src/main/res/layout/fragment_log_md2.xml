@@ -15,12 +15,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/log_filter_magisk"
-            layout="@layout/include_log_magisk"
-            viewModel="@{viewModel}"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/WidgetFoundation.Card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="104dp"
+            android:layout_marginBottom="104dp"
+            android:layout_marginLeft="@dimen/l1"
+            android:layout_marginRight="@dimen/l1"
+            android:backgroundTint="@android:color/black">
+
+            <include
+                    android:id="@+id/log_filter_magisk"
+                    layout="@layout/include_log_magisk"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    viewModel="@{viewModel}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             gone="@{viewModel.loading}"
@@ -30,11 +45,9 @@
             android:layout_gravity="bottom|end"
             android:layout_marginStart="@dimen/l1"
             android:layout_marginEnd="@dimen/l1"
-            android:layout_marginBottom="72dp"
+            android:layout_marginBottom="64dp"
             app:layout_fitsSystemWindowsInsets="bottom"
-            app:backgroundTint="?colorSurfaceSurfaceVariant"
             app:srcCompat="@drawable/ic_folder_list"
-            app:tint="?colorPrimary"
             tools:layout_marginBottom="64dp" />
 
         <com.google.android.material.circularreveal.cardview.CircularRevealCardView

@@ -40,9 +40,9 @@ class HomeViewModel(
     }
 
     val magiskTitleBarrierIds =
-        intArrayOf(R.id.home_magisk_icon, R.id.home_magisk_title, R.id.home_magisk_button)
+        intArrayOf(R.id.home_magisk_icon, R.id.home_magisk_button)
     val appTitleBarrierIds =
-        intArrayOf(R.id.home_manager_icon, R.id.home_manager_title, R.id.home_manager_button)
+        intArrayOf(R.id.home_manager_icon, R.id.home_manager_button)
 
     @get:Bindable
     var isNoticeVisible = Config.safetyNotice
@@ -127,6 +127,16 @@ class HomeViewModel(
     }.publish()
 
     fun onDeletePressed() = UninstallDialog().show()
+
+    fun onRestorePressed(){
+        Shell.cmd("restore_imgs").submit { result ->
+            if (result.isSuccess) {
+                Utils.toast(R.string.restore_done, Toast.LENGTH_SHORT)
+            } else {
+                Utils.toast(R.string.restore_fail, Toast.LENGTH_LONG)
+            }
+        }
+    }
 
     fun onManagerPressed() = when (appState) {
         State.LOADING -> SnackbarEvent(R.string.loading).publish()
